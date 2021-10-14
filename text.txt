@@ -1,0 +1,12 @@
+fs.readdir('./commandName/',(err,files)=>{
+  if(err) console.log(err);
+  let jsfiles = files.filter(f => f.split(".").pop() === "js");
+  if(jsfiles.length <=0) console.log("Нет комманд для загруки");
+});
+
+const commandFiles = fs.readdirSync('./commandName').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commandName/${file}`);
+    client.commands.set(command.name, command);
+}
